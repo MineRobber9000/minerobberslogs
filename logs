@@ -2,10 +2,14 @@ local tChoices = {}
 tChoices[0] = 'Log Info'
 
 
-table.insert(tChoices, 'Shutdown') -- If you add more stuff, the shutdown will always come at the bottom, without you having to change its #.
+table.insert(tChoices, 'Return') -- If you add more stuff, the shutdown will always come at the bottom, without you having to change its #.
 local nTermX, nTermY = term.getSize()
 local function sSeperator(size)
   return ("-"):rep(size)
+end
+
+local function returnFrom()
+  break
 end
 
 local tActions = {} -- Twin table of tChouices, we'll put functions in here to do stuff.
@@ -18,13 +22,13 @@ tActions[0] = function() -- Stuff a function in here!
 	print(sSeperator(12))
 	print("| Log Info |")
 	print(sSeperator(12))
-	print("These are my logs")
+	print("These are my logs.")
 	term.setCursorPos(1, nTermY) -- Move the cursor to the bottom
 	write("    [Press enter to return to main menu]")
 	read()
 end
 
-table.insert(tActions, os.shutdown) -- Insert the shutdown function at the end to compliment the "Shutdown" menu item :)
+table.insert(tActions, returnFrom) -- Insert the shutdown function at the end to compliment the "Shutdown" menu item :)
 
 -- Do the above for the remaining
 
