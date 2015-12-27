@@ -23,7 +23,7 @@ tActions[0] = function() -- Stuff a function in here!
 	read()
 end
 
-tActions[0] = function() -- Stuff a function in here!
+tActions[1] = function() -- Stuff a function in here!
 	term.clear()
 	term.setCursorPos(1, 1) -- Reset the cursor's position to be safe
 	print(sSeperator(16))
