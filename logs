@@ -1,5 +1,6 @@
 local tChoices = {}
 tChoices[0] = 'Log Info'
+tChoices[1] = 'Got a Wii U!'
 
 local nTermX, nTermY = term.getSize()
 local function sSeperator(size)
@@ -17,6 +18,22 @@ tActions[0] = function() -- Stuff a function in here!
 	print("| Log Info |")
 	print(sSeperator(12))
 	print("These are my logs.")
+	term.setCursorPos(1, nTermY) -- Move the cursor to the bottom
+	write("    [Press enter to return to main menu]")
+	read()
+end
+
+tActions[0] = function() -- Stuff a function in here!
+	term.clear()
+	term.setCursorPos(1, 1) -- Reset the cursor's position to be safe
+	print(sSeperator(16))
+	print("| Got a Wii U! |")
+	print(sSeperator(16))
+	print("I got a Wii U! I'll have fun playing on it!")
+	print("I have:")
+	print("Super Mario Maker")
+	print("Splatoon")
+	print("Super Smash Bros for Wii U")
 	term.setCursorPos(1, nTermY) -- Move the cursor to the bottom
 	write("    [Press enter to return to main menu]")
 	read()
