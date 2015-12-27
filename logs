@@ -1,18 +1,12 @@
 local tChoices = {}
 tChoices[0] = 'Log Info'
 
-
-table.insert(tChoices, 'Return') -- If you add more stuff, the shutdown will always come at the bottom, without you having to change its #.
 local nTermX, nTermY = term.getSize()
 local function sSeperator(size)
   return ("-"):rep(size)
 end
 
-local function returnFrom()
-  break
-end
-
-local tActions = {} -- Twin table of tChouices, we'll put functions in here to do stuff.
+local tActions = {} -- Twin table of tChoices, we'll put functions in here to do stuff.
 
 
 
@@ -28,8 +22,6 @@ tActions[0] = function() -- Stuff a function in here!
 	read()
 end
 
-table.insert(tActions, returnFrom) -- Insert the shutdown function at the end to compliment the "Shutdown" menu item :)
-
 -- Do the above for the remaining
 
 local nSelection = 0 -- The current selection defaults at 0
@@ -41,7 +33,7 @@ repeat
 	print(sSeperator(30))
 
 	for nLine = 0, #tChoices do -- Iterate through the possible potions, and print them, marking the chosen one
-		local sLine = " "
+		local sLine = "-"
 		if nSelection == nLine then
 			sLine = ">"
 		end
