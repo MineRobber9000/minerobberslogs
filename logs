@@ -1,0 +1,124 @@
+local tChoices = {}
+tChoices[0] = 'Terminal Password'
+tChoices[1] = 'Mining Reports'
+tChoices[2] = 'New Base of Operations'
+tChoices[3] = 'Energy Project'
+
+
+table.insert(tChoices, 'Shutdown') -- If you add more stuff, the shutdown will always come at the bottom, without you having to change its #.
+local nTermX, nTermY = term.getSize()
+local sSeperator = ("-"):rep(nTermX) -- Create a seperator string with the size of the terminal
+
+local tActions = {} -- Twin table of tChouices, we'll put functions in here to do stuff.
+
+
+
+tActions[0] = function() -- Stuff a function in here!
+	term.clear()
+	term.setCursorPos(1, 1) -- Reset the cursor's position to be safe
+	print(sSeperator)
+	print("|                          Terminal Password                             |")
+	print(sSeperator)
+	print("Information Deleted By User")
+	term.setCursorPos(1, nTermY) -- Move the cursor to the bottom
+	write("    [Press enter to return to main menu]")
+	read()
+end
+
+tActions[1] = function()
+	term.clear()
+	term.setCursorPos(1, 1)
+	print(sSeperator)
+	print "|                                Mining Reports                           |"
+	print(sSeperator)
+	print "Today I mined 32 iron in a deep mine under my"
+	print "house. I got attacked by a zombie on my way out"
+	print "of the mine. I had to drop all my iron so I could"
+	print "Run fast enough to outrun the zombie."
+
+	term.setCursorPos(1, nTermY) -- Move the cursor to the bottom
+	write("    [Press enter to return to main menu]")
+	read()
+end
+
+tActions[2] = function() -- I've just copypasted these, with the space-saving modification :p
+	term.clear()
+	term.setCursorPos(1, 1)
+	print(sSeperator)
+	print "|                        New Base of Operations                   |"
+	print(sSeperator)
+	print "I have moved out of my home into a new base in"
+	print "the mountain up north. I will be studying new"
+	print "ways to produce energy to power my technology."
+	
+	term.setCursorPos(1, nTermY) -- Move the cursor to the bottom
+	write("    [Press enter to return to main menu]")
+	read()
+end
+
+tActions[3] = function()
+	term.clear()
+	term.setCursorPos(1, 1)
+	print(sSeperator)
+	print "|                                Energy Project                           |"
+	print(sSeperator)
+	print "I have discovered a new type of energy that has"
+	print "the power output to power 10 cities all at once."
+	print ""
+	print "I ran into one problem once i discovered this new"
+	print "type of energy. I couldnt find a way to get it"
+	print "stable enough to be safe. I had to flee the area."
+	print "After i left the area my base exploded and made"
+	print "the mountain into...well....lets just say its not"
+	print "a mountain anymore....."
+
+	term.setCursorPos(1, nTermY) -- Move the cursor to the bottom
+	write("    [Press enter to return to main menu]")
+	read()
+end
+
+table.insert(tActions, os.shutdown) -- Insert the shutdown function at the end to compliment the "Shutdown" menu item :)
+
+-- Do the above for the remaining
+
+local nSelection = 0 -- The current selection defaults at 0
+repeat
+	term.setCursorPos(1, 1)
+	term.clear()
+	print(sSeperator)
+	print("| MineRobber's Personal Logs |")
+	print(sSeperator)
+
+	for nLine = 0, #tChoices do -- Iterate through the possible potions, and print them, marking the chosen one
+		local sLine = " "
+		if nSelection == nLine then
+			sLine = ">"
+		end
+		local sLineNum = tostring(nLine)
+		if #sLineNum < 2 then
+			sLineNum = "0" .. sLineNum -- Prepend a 0 if it's too short
+		end
+		sLine = sLine .. "[" .. sLineNum .. "]" .. " " .. tChoices[nLine] -- Construct the string we're printing
+		print(sLine) -- Print it
+	end
+	-- os.pullEvent keys: up - 200, down - 208, enter - 28
+	local sEvent, nKey = os.pullEvent("key") -- Using the 1.3 filtering; this will mean only "key" events will pass
+
+	if nKey == 200 or nKey == 17 then -- Up/w key: move up the menu
+		if tChoices[nSelection - 1] then -- Check if we can move up
+			nSelection = nSelection - 1
+		end
+		-- Ignore it otherwise
+	elseif nKey == 208 or nKey == 31  then -- Down/s key: move down the menu
+		if tChoices[nSelection + 1] then -- Check if we can move down
+			nSelection = nSelection + 1
+		end
+	elseif nKey == 28 then -- Enter key: Selecting a choice
+		if tActions[nSelection] then
+			tActions[nSelection]() -- Run the function associated with the action.
+		else
+			print("Error: Selection out of bounds: ", nSelection)
+			read() -- This error is recoverable.
+		end
+	end
+until false -- Run this loop forever :)
